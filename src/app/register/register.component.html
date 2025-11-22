@@ -1,1 +1,122 @@
-<p>register works!</p>
+<div class="container vh-100 d-flex align-items-center justify-content-center bg-light">
+    <div class="row w-100" style="max-width: 800px;">
+      <div class="col-12 shadow-lg p-5 rounded bg-white">
+  
+        <!-- Header -->
+        <div class="text-center mb-4">
+          <h2 class="fw-bold text-primary">Create Account</h2>
+          <p class="text-muted">Start your journey with us</p>
+        </div>
+  
+        <!-- Register Form -->
+        <form #registerForm="ngForm" (ngSubmit)="onRegister()" novalidate>
+          
+          <!-- Full Name -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              [(ngModel)]="name"
+              required
+              minlength="3"
+              #nameModel="ngModel"
+            />
+            <div *ngIf="registerForm.submitted && !nameModel.valid" class="text-danger small">
+              Name is required (min 3 characters).
+            </div>
+          </div>
+  
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              [(ngModel)]="email"
+              required
+              email
+              #emailModel="ngModel"
+            />
+            <div *ngIf="registerForm.submitted && !emailModel.valid" class="text-danger small">
+              Valid email is required.
+            </div>
+          </div>
+  
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              [(ngModel)]="password"
+              required
+              minlength="6"
+              #passwordModel="ngModel"
+            />
+            <div *ngIf="registerForm.submitted && !passwordModel.valid" class="text-danger small">
+              Password must be at least 6 characters.
+            </div>
+          </div>
+  
+          <!-- Confirm Password -->
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              class="form-control"
+              [(ngModel)]="confirmPassword"
+              required
+            />
+            <div *ngIf="registerForm.submitted && password !== confirmPassword" class="text-danger small">
+              Passwords do not match.
+            </div>
+          </div>
+  
+          <!-- Role ID Selection -->
+  <div class="mb-3">
+    <label for="roleId" class="form-label">Role</label>
+    <select
+      id="roleId"
+      name="roleId"
+      class="form-select"
+      [(ngModel)]="roleId"
+      required
+      #roleModel="ngModel"
+    >
+      <option value="null" disabled selected>Select a role</option>
+      <option value="1">Admin</option>
+      <option value="2">Manager</option>
+      <option value="3">Employee</option>
+    </select>
+    <div *ngIf="registerForm.submitted && !roleModel.valid" class="text-danger small">
+      Role is required.
+    </div>
+  </div>
+  
+  
+          <!-- Submit Button -->
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="!registerForm.valid">
+              Register
+            </button>
+          </div>
+        </form>
+  
+        <!-- Login Link -->
+        <div class="text-center mt-3">
+          <p>Already have an account? <a routerLink="/login" class="text-decoration-none">Login here</a></p>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  

@@ -1,1 +1,587 @@
-<p>admin-dashboard works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .sidebar {
+      min-height: 100vh;
+      border-right: 1px solid #dee2e6;
+      background-color: #f8f9fa;
+    }
+
+    .sidebar .nav-link {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar .nav-link:hover {
+      background-color: rgba(13, 110, 253, 0.1);
+      border-radius: 0.375rem;
+    }
+
+    .sidebar .nav-link.active {
+      font-weight: bold;
+      color: #0d6efd !important;
+      background-color: rgba(13, 110, 253, 0.1);
+      border-radius: 0.375rem;
+    }
+
+    .dashboard-container {
+      background-color: #f8f9fa;
+    }
+
+    .progress {
+      height: 1rem;
+    }
+
+    .progress-bar {
+      font-size: 0.75rem;
+      line-height: 1rem;
+    }
+
+    /* Add padding-top to sections to account for fixed navbar */
+    .section-anchor {
+      scroll-margin-top: 80px;
+    }
+
+    /* Smooth scroll for the main content area */
+    main {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <span class="navbar-text text-white me-3">Welcome, {{currentUser?.name}}</span>
+        <div class="d-flex align-items-center">
+          <button (click)="handleLogout()" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+          <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link fw-bold" onclick="scrollToSection('admin-dashboard')" id="nav-dashboard">
+                  <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="scrollToSection('user-management')" id="nav-users">
+                  <i class="bi bi-people me-2"></i>Users
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="scrollToSection('role-management')" id="nav-roles">
+                  <i class="bi bi-shield-check me-2"></i>Roles
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="scrollToSection('permission-management')" id="nav-permissions">
+                  <i class="bi bi-key me-2"></i>Permissions
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <!-- Dashboard Header -->
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom section-anchor" id="admin-dashboard">
+            <h1 class="h2">
+              <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
+            </h1>
+          </div>
+
+          <!-- Dashboard Stats Cards -->
+          <div class="row mb-4">
+            <div class="col-md-3">
+              <div class="card text-white bg-primary">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title">Total Users</h5>
+                      <h3>{{users.length}}</h3>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="bi bi-people fs-1"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-white bg-success">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title">Total Roles</h5>
+                      <h3>{{rolesList.length}}</h3>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="bi bi-shield-check fs-1"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-white bg-info">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title">Permissions</h5>
+                      <h3>{{permissions.length}}</h3>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="bi bi-key fs-1"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-white bg-warning">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title">Active Sessions</h5>
+                      <h3>12</h3>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="bi bi-activity fs-1"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Management -->
+          <div class="card mb-4 section-anchor" id="user-management">
+            <div class="card-header bg-primary text-white">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                  <i class="bi bi-people me-2"></i>User Management
+                </h5>
+                <button class="btn btn-light btn-sm"
+                  aria-controls="userModal"
+                  (click)="openAddUserModal()">
+                  <i class="bi bi-plus-circle"></i> Add User
+                </button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Manager</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of users">
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white me-2"
+                               style="width: 32px; height: 32px; font-size: 14px;">
+                            {{ user.name.charAt(0).toUpperCase() }}
+                          </div>
+                          {{ user.name }}
+                        </div>
+                      </td>
+                      <td>{{ user.email }}</td>
+                      <td>
+                        <span class="badge bg-info">{{ user.roleId }}</span>
+                      </td>
+                      <td>{{ user.managerId || 'N/A' }}</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary me-1"
+                                (click)="openEditUserModal(user)"
+                                data-bs-toggle="modal"
+                                data-bs-target="#userModal">
+                          <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger"
+                                (click)="deleteUser(user.userId!)">
+                          <i class="bi bi-trash"></i> Delete
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add/Edit User Modal -->
+          <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form (ngSubmit)="saveUser()" #userForm="ngForm">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel">{{ isEditMode ? 'Edit User' : 'Add User' }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="mb-3">
+                      <label>Name</label>
+                      <input type="text" class="form-control" [(ngModel)]="selectedUser.name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                      <label>Email</label>
+                      <input type="email" class="form-control" [(ngModel)]="selectedUser.email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                      <label>Password</label>
+                      <input type="password" class="form-control" [(ngModel)]="selectedUser.password" name="password" [required]="!isEditMode">
+                    </div>
+                    
+                    <div class="mb-3">
+                      <label>Role ID</label>
+                      <input type="number" class="form-control" [(ngModel)]="selectedUser.roleId" name="roleId" required>
+                    </div>
+                    <div class="mb-3">
+                      <label>Manager ID (Optional)</label>
+                      <input type="number" class="form-control" [(ngModel)]="selectedUser.managerId" name="managerId">
+                    </div>
+                    <div class="mb-3">
+                      <label>Status</label>
+                      <select class="form-select" [(ngModel)]="selectedUser.status" name="status" required>
+                        <option value="" disabled>Select status</option>
+                        <option value="ACTIVE">Active</option>
+                        <option value="INACTIVE">Inactive</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">
+                        {{ isEditMode ? 'Update' : 'Save' }}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role Management -->
+          <div class="card mb-4 section-anchor" id="role-management">
+            <div class="card-header bg-success text-white">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                  <i class="bi bi-shield-check me-2"></i>Role Management
+                </h5>
+                <button class="btn btn-light btn-sm" (click)="openAddRoleModal()">
+                  <i class="bi bi-plus-circle"></i> Add Role
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Role Name</th>
+                      <th>Description</th>
+                      <th>Users Count</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let role of rolesList">
+                      <td><span class="badge bg-primary">{{ role.roleName }}</span></td>
+                      <td>{{ role.description }}</td>
+                      <td><span class="badge bg-info">{{ role.userCount || 0 }} users</span></td>
+                      <td>
+                        <button
+                          class="btn btn-sm btn-outline-primary me-1"
+                          (click)="editRole(role)"
+                        >
+                          <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button
+                          class="btn btn-sm btn-outline-danger"
+                          (click)="deleteRole(role.roleId!)"
+                        >
+                          <i class="bi bi-trash"></i> Delete
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role Modal -->
+          <div class="modal fade" id="roleModal" tabindex="-1" aria-labelledby="roleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">{{ isEditRoleMode ? 'Edit Role' : 'Add Role' }}</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label class="form-label">Role Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="selectedRoleData.roleName"
+                        name="roleName"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <textarea
+                        class="form-control"
+                        [(ngModel)]="selectedRoleData.description"
+                        name="description"
+                        required
+                      ></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Permissions (comma-separated)</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="rolePermissionsInput"
+                        name="permissions"
+                        placeholder="e.g. View Tasks, Edit Users"
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="saveRole()"
+                  >
+                    {{ isEditRoleMode ? 'Update' : 'Create' }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+          <!-- Permission Management -->
+          <div class="card mb-4 section-anchor" id="permission-management">
+            <div class="card-header bg-info text-white">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                  <i class="bi bi-key me-2"></i>Permission Management
+                </h5>
+                <button class="btn btn-light btn-sm" (click)="openAddModal()">
+                  <i class="bi bi-plus-circle"></i> Add Permission
+                </button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Permission Name</th>
+                      <th>Description</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let permission of permissions">
+                      <td>
+                        <span class="badge bg-primary">{{ permission.permissionName }}</span>
+                      </td>
+                      <td>{{ permission.description }}</td>
+                      <td>
+                        <button
+                          class="btn btn-sm btn-outline-primary me-1"
+                          (click)="openEditModal(permission)"
+                        >
+                          <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button
+                          class="btn btn-sm btn-outline-danger"
+                          (click)="deletePermission(permission.permissionId)"
+                        >
+                          <i class="bi bi-trash"></i> Delete
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add/Edit Permission Modal -->
+          <div class="modal fade" id="permissionModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">{{ isEditMode ? 'Edit' : 'Add' }} Permission</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="permissionName" class="form-label">Permission Name</label>
+                      <input
+                        type="text"
+                        id="permissionName"
+                        class="form-control"
+                        [(ngModel)]="selectedPermission.permissionName"
+                        name="permissionName"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="description" class="form-label">Description</label>
+                      <textarea
+                        id="description"
+                        class="form-control"
+                        [(ngModel)]="selectedPermission.description"
+                        name="description"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button
+                    class="btn btn-primary"
+                    (click)="savePermission()"
+                    data-bs-dismiss="modal"
+                  >
+                    {{ isEditMode ? 'Update' : 'Create' }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Smooth scrolling function
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        // Update active nav link
+        updateActiveNavLink(sectionId);
+      }
+    }
+
+    // Update active navigation link
+    function updateActiveNavLink(activeSection) {
+      // Remove active class from all nav links
+      document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      // Add active class to current section's nav link
+      const navMapping = {
+        'admin-dashboard': 'nav-dashboard',
+        'user-management': 'nav-users',
+        'role-management': 'nav-roles',
+        'permission-management': 'nav-permissions'
+      };
+      
+      const activeNavId = navMapping[activeSection];
+      if (activeNavId) {
+        const activeNav = document.getElementById(activeNavId);
+        if (activeNav) {
+          activeNav.classList.add('active');
+        }
+      }
+    }
+
+    // Intersection Observer to update active nav based on scroll position
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('.section-anchor');
+      const navLinks = document.querySelectorAll('.sidebar .nav-link');
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -80% 0px',
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            updateActiveNavLink(entry.target.id);
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+
+      // Set initial active state
+      updateActiveNavLink('admin-dashboard');
+    });
+  </script>
+  
+</body>
+</html>

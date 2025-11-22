@@ -1,1 +1,329 @@
-<p>landing-page works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillSync - Task Allocation System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#home">
+      <i class="bi bi-diagram-3-fill me-2"></i>SkillSync
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="#features" >Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="#how-it-works">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="#testimonials">Testimonials</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="#contact">Contact</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" routerLink="/login">Login</a>     
+           </li>
+         <li class="nav-item ">
+          <a class="nav-link" routerLink="/register">Register</a>   
+             </li>
+        <!-- Dropdown Menu -->
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Hero Section -->
+<!-- Hero Section (Landing Page) -->
+<section id="home" class="hero-section py-5 mt-5">
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold mb-4">Optimize Your Team's Potential</h1>
+        <p class="lead mb-4">SkillSync intelligently matches tasks with your team members' skills, ensuring optimal productivity and job satisfaction.</p>
+        
+        <!-- Show user credentials if logged in -->
+        <div *ngIf="isLoggedIn">
+          <p class="lead mb-4">Welcome back, {{ email }} (Role: {{ role }})!</p>
+        </div>
+
+        <!-- <div class="d-flex gap-3">
+          <a href="#" class="btn btn-primary btn-lg px-4">Start Free Trial</a>
+          <a href="#" class="btn btn-outline-primary btn-lg px-4">Learn More</a>
+        </div> -->
+        <div class="info-highlight-box mt-3">
+          <h5 class="mb-3 text-primary">Why Choose SkillSync?</h5>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Intelligent skill-to-task matching engine
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Maximize team efficiency and reduce workload stress
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Real-time notifications and adaptive workflow
+            </li>
+            <li>
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Secure, role-based access tailored to your needs
+            </li>
+          </ul>
+        </div>
+        
+        
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <img src="assets/images/7.jpg" alt="Task Allocation Dashboard" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Features Section -->
+<section id="features" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">Features</h2>
+    <div class="row">
+      <div class="col-12">
+        <div class="features-container d-flex overflow-auto">
+          <div class="feature-card">
+            <i class="bi bi-person-check-fill fs-1 text-primary mb-3"></i>
+            <h5 class="card-title">Skill Management</h5>
+            <p class="card-text">Manage and track team members' skills for effective project allocation.</p>
+          </div>
+          <div class="feature-card">
+            <i class="bi bi-person-check-fill fs-1 text-primary mb-3"></i>
+            <h5 class="card-title">Skill-Based Task Allocation</h5>
+            <p class="card-text">Efficiently assign tasks based on team members' skills to optimize productivity and performance.</p>
+          </div>
+          <div class="feature-card">
+            <i class="bi bi-shield-lock-fill fs-1 text-danger mb-3"></i>
+            <h5 class="card-title">Role-Based Access</h5>
+            <p class="card-text">Define access permissions for each role to ensure the right people have the right access.</p>
+          </div>
+          <div class="feature-card">
+            <i class="bi bi-list-task fs-1 text-success mb-3"></i>
+            <h5 class="card-title">Task Workflow</h5>
+            <p class="card-text">Streamline the workflow for better task management and team collaboration.</p>
+          </div>
+          <div class="feature-card">
+            <i class="bi bi-bell-fill fs-1 text-warning mb-3"></i>
+            <h5 class="card-title">Real-Time Notifications</h5>
+            <p class="card-text">Get instant notifications about task updates, deadlines, and more to stay on top of your work.</p>
+          </div>
+          <div class="feature-card">
+            <i class="bi bi-bar-chart-fill fs-1 text-info mb-3"></i>
+            <h5 class="card-title">Performance Analytics</h5>
+            <p class="card-text">Leverage detailed performance metrics to make informed decisions and improve team productivity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">How It Works</h2>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <div class="step">
+          <div class="step-number bg-primary text-white mb-3">1</div>
+          <h5>Step 1: Define Your Tasks</h5>
+          <p>Input your tasks and the necessary skill sets required to complete them. Get a clear overview of task requirements.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step">
+          <div class="step-number bg-success text-white mb-3">2</div>
+          <h5>Step 2: Match Tasks with Skills</h5>
+          <p>Our system matches tasks with the most suitable team members based on their skills, ensuring optimal task allocation.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step">
+          <div class="step-number bg-warning text-white mb-3">3</div>
+          <h5>Step 3: Monitor & Adjust</h5>
+          <p>Keep track of task progress in real-time and make adjustments as necessary to keep things running smoothly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">What Our Clients Say</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-header d-flex align-items-center">
+            <img class="client-img" src="assets/images/client1.jpg" alt="Client Image">
+            <div class="ml-3">
+              <h5>John Doe</h5>
+              <p class="text-muted">CEO of TechCorp</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text text-center">"SkillSync has revolutionized how we allocate tasks. Our team's productivity has soared since implementing it."</p>
+            <div class="d-flex justify-content-center mt-2">
+              <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-header d-flex align-items-center">
+            <img class="client-img" src="assets/images/client2.jpg" alt="Client Image">
+            <div class="ml-3">
+              <h5>Jane Smith</h5>
+              <p class="text-muted">Project Manager at InnovateX</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text text-center">"The real-time tracking feature ensures that we are always on top of our deadlines. I can't recommend it enough."</p>
+            <div class="d-flex justify-content-center mt-2">
+              <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-header d-flex align-items-center">
+            <img class="client-img" src="assets/images/client3.jpg" alt="Client Image">
+            <div class="ml-3">
+              <h5>Michael Brown</h5>
+              <p class="text-muted">Operations Head at BuildPro</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text text-center">"SkillSync helped us streamline our workflow and made team collaboration seamless. A game-changer for our operations."</p>
+            <div class="d-flex justify-content-center mt-2">
+              <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="bg-light-purple py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Get In Touch</h5>
+        <p><i class="fas fa-map-marker-alt me-2"></i> <strong>Address:</strong> 123 SkillSync Avenue, Suite 100, Tech City, TX</p>
+        <p><i class="fas fa-phone-alt me-2"></i> <strong>Phone:</strong> +1 (234) 567-890</p>
+        <p><i class="fas fa-envelope me-2"></i> <strong>Email:</strong> <a href="mailto:contact@skillsync.com">contact@skillsync.com</a></p>
+      </div>
+      <div class="col-md-6">
+        <div class="p-4 rounded shadow-sm" style="background-color: #e6f0ff;">
+          <h4 class="mb-3 text-primary fw-bold">Why Reach Out?</h4>
+          <ul class="list-unstyled text-muted">
+            <li class="mb-3">
+              <i class="bi bi-chat-dots-fill text-primary me-2 fs-5"></i>
+              Learn how SkillSync can improve your team's productivity.
+            </li>
+            <li class="mb-3">
+              <i class="bi bi-rocket-takeoff-fill text-warning me-2 fs-5"></i>
+              Launch your next project with SkillSync’s precision.
+            </li>
+            
+            
+            <li class="mb-3">
+              <i class="bi bi-people-fill text-success me-2 fs-5"></i>
+              Explore partnership or integration opportunities.
+            </li>
+            <li>
+              <i class="bi bi-question-circle-fill text-danger me-2 fs-5"></i>
+              Have questions? We're here to help with anything you need.
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-5">
+  <div class="container py-4">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <h5 class="fw-bold mb-3">
+          <i class="bi bi-diagram-3-fill me-2"></i>SkillSync
+        </h5>
+        <p>Optimizing team productivity through intelligent skill-based task allocation and seamless collaboration tools.</p>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-white"><i class="bi bi-facebook fs-4"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-twitter fs-4"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-linkedin fs-4"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-instagram fs-4"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <h5 class="fw-bold mb-3">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#home" class="text-white text-decoration-none">Home</a></li>
+          <li><a href="#features" class="text-white text-decoration-none">Features</a></li>
+          <li><a href="#how-it-works" class="text-white text-decoration-none">How It Works</a></li>
+          <li><a href="#testimonials" class="text-white text-decoration-none">Testimonials</a></li>
+          <li><a href="#contact" class="text-white text-decoration-none">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h5 class="fw-bold mb-3">Resources</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white text-decoration-none">Documentation</a></li>
+          <li><a href="#" class="text-white text-decoration-none">API Reference</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Help Center</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Community Forum</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="my-4 text-white">
+    <div class="row">
+      <div class="col-md-6 text-center text-md-start">
+        <p class="mb-0">&copy; 2025 SkillSync. All rights reserved.</p>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <p class="mb-0">Designed for productive teams</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

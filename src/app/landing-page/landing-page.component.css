@@ -1,0 +1,266 @@
+/* landing.component.css */
+
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+  
+  /* Icon Boxes */
+  .icon-box {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Step Numbers */
+  .step-number {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Navbar Scroll Effect */
+  .navbar {
+    transition: all 0.3s ease;
+  }
+  
+  .navbar.scrolled {
+    background-color: #343a40 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Card Hover Effect */
+  /* Remove the default card border and styling */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: none; /* Remove shadow */
+  }
+/* Custom styling for the card header */
+.card-header {
+    background-color: transparent;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+  .client-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px; /* Adds space between image and text */
+  }
+  
+  /* Styling for client name and position */
+.card-header h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+  
+  .card-header p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0;
+  }
+
+  /* Styling for card body content */
+.card-body {
+    padding: 20px;
+  }
+  
+  /* Styling for testimonial text */
+  .card-text {
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Rating Styling */
+  .text-warning {
+    font-size: 1.2rem;
+    color: #ffcc00; /* Star color */
+  }
+
+  
+/* Ensure proper spacing and alignment */
+.card-body .d-flex {
+    justify-content: center;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Carousel Controls */
+  .carousel-control-prev, .carousel-control-next {
+    width: 5%;
+  }
+  
+  /* Gradient Backgrounds */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .bg-gradient-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  }
+  
+  .bg-gradient-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+  
+  .bg-gradient-warning {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  }
+  
+  .bg-gradient-danger {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+  
+  .bg-gradient-secondary {
+    background: linear-gradient(135deg, #868f96 0%, #596164 100%);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .hero-section {
+      text-align: center;
+      padding-top: 100px;
+    }
+    
+    .display-4 {
+      font-size: 2.5rem;
+    }
+  }
+
+  /* Light Purple Background for the Contact Section */
+.bg-light-purple {
+    background-color: #dbebf3; /* Light Purple color */
+  }
+  
+  /* Styling the "Get in Touch" section with icons */
+  #contact .fa {
+    color: #6f42c1; /* Purple color for icons */
+    margin-right: 10px; /* Adds space between icon and text */
+  }
+  
+  /* Adjusting the form layout */
+  #contact .form-label {
+    font-weight: bold;
+  }
+  
+  /* Styling the "Get in Touch" section */
+  #contact .col-md-6 h5 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  #contact .col-md-6 p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Styling the "Send Us a Message" form */
+  #contact .form-control {
+    border-radius: 0.375rem;
+  }
+  
+  #contact button[type="submit"] {
+    background-color: #007bff; /* Blue color */
+    color: white;
+    border-radius: 0.375rem;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #contact button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    #contact .row {
+      flex-direction: column;
+    }
+  }
+  /* Features Container for Horizontal Scrolling */
+.features-container {
+    display: flex;
+    gap: 20px; /* Space between cards */
+    overflow-x: auto; /* Allow horizontal scrolling */
+    padding: 20px 0;
+    scroll-snap-type: x mandatory; /* For smooth scroll snapping */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+    scroll-behavior: smooth; /* Smooth scrolling for browsers that support it */
+  }
+  
+  /* Styling individual feature cards */
+  .feature-card {
+    width: 30%; /* Adjust to display 3 cards at once */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-shrink: 0; /* Prevent cards from shrinking */
+    scroll-snap-align: center; /* Align the cards to the center during scrolling */
+  }
+  
+  /* Rollover effect for the feature card */
+  .feature-card:hover {
+    transform: scale(1.05); /* Slightly zoom in on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Darker shadow */
+  }
+  
+  /* Styling icons inside the feature card */
+  .feature-card i {
+    font-size: 3rem; /* Large icon size */
+    color: #6c757d; /* Default color for icons */
+  }
+  
+  /* Adjust spacing when cards are too many or too few */
+  .features-container::-webkit-scrollbar {
+    height: 8px; /* Thin scrollbar */
+    background-color: white; /* Set the background color of the scrollbar to white */
+  }
+  
+  .features-container::-webkit-scrollbar-thumb {
+    background-color: #ddd; /* Set the thumb (scroll handle) color to light gray */
+    border-radius: 4px;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .feature-card {
+      width: 45%; /* 2 cards per row on medium screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .feature-card {
+      width: 100%; /* 1 card per row on smaller screens */
+    }
+    .features-container {
+      flex-direction: column; /* Stack cards vertically */
+      align-items: center;
+    }
+  }
+  
+  

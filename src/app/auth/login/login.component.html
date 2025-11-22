@@ -1,1 +1,93 @@
-<p>login works!</p>
+<div class="container vh-100 d-flex align-items-center justify-content-center bg-light">
+    <div class="row w-100" style="max-width: 600px;">
+      <div class="col-12 shadow-lg p-5 rounded bg-white">
+  
+        <!-- Heading -->
+        <div class="text-center mb-4">
+          <h2 class="fw-bold text-primary">Login</h2>
+          <p class="text-muted">Please enter your credentials to continue</p>
+        </div>
+  
+        <!-- Login Form -->
+        <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+  
+          <!-- Email Field -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              [(ngModel)]="email"
+              class="form-control"
+              required
+              email
+              #emailInput="ngModel"
+              placeholder="Enter your email"
+            />
+            <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger small">
+              Please enter a valid email.
+            </div>
+          </div>
+  
+          <!-- Password Field -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              [(ngModel)]="password"
+              class="form-control"
+              required
+              minlength="6"
+              #passwordInput="ngModel"
+              placeholder="Enter your password"
+            />
+            <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger small">
+              Password must be at least 6 characters long.
+            </div>
+          </div>
+  
+          <!-- Role Dropdown  -->
+          <div class="mb-3" *ngIf="!isUserLoggedIn">
+            <label for="role" class="form-label">Login as</label>
+            <select
+              id="role"
+              name="role"
+              [(ngModel)]="role"
+              class="form-select"
+              required
+              #roleInput="ngModel"
+            >
+              <option value="" disabled selected>Select role</option>
+              <option value="employee">Employee</option>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+            </select>
+            <div *ngIf="roleInput.invalid && roleInput.touched" class="text-danger small">
+              Please select a role.
+            </div> 
+          </div>
+  
+          <!-- Submit Button -->
+          <div class="d-grid">
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg"
+              [disabled]="loginForm.invalid"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+  
+        <!-- Registration Link -->
+        <div class="text-center mt-4">
+          <p>Don't have an account? <a routerLink="/register" class="text-decoration-none">Register here</a></p>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
